@@ -50,3 +50,6 @@ Thumbs.db
 
 # custom
 _*.md
+
+#accounts
+accounts/

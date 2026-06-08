@@ -7,8 +7,8 @@ import morgan from 'morgan';
 import rateLimit from 'express-rate-limit';
 import * as dotenv from 'dotenv';
 
-import { AppDataSource } from './data-source';
 import userRoutes from './routes/userRoutes';
+import accountRoutes from './routes/accountRoutes';
 import { errorHandler, notFoundHandler } from './middlewares/errorHandler';
 
 // Load environment variables
@@ -62,6 +62,7 @@ app.get('/health', (req, res) => {
 
 // API routes
 app.use(`${API_PREFIX}/users`, userRoutes);
+app.use(`${API_PREFIX}/accounts`, accountRoutes);
 
 // Welcome route
 app.get('/', (req, res) => {
@@ -86,7 +87,7 @@ async function startServer() {
   try {
     // Initialize database connection
     //await AppDataSource.initialize();
-    console.log('✅ Database connection established');
+    // console.log('✅ Database connection established');
 
     // Start server
     app.listen(PORT, () => {
@@ -113,17 +114,11 @@ async function startServer() {
 // Handle graceful shutdown
 process.on('SIGTERM', async () => {
   console.log('🔄 SIGTERM received, shutting down gracefully');
-  if (AppDataSource.isInitialized) {
-    await AppDataSource.destroy();
-  }
   process.exit(0);
 });
 
 process.on('SIGINT', async () => {
   console.log('🔄 SIGINT received, shutting down gracefully');
-  if (AppDataSource.isInitialized) {
-    await AppDataSource.destroy();
-  }
   process.exit(0);
 });
 

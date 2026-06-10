@@ -14,12 +14,12 @@ export class AccountController {
     try {
         let name = "Charlie";
         let email = "charlie.pauch@gmail.com";
-        let hash = this.accountService.getAccountNumber(name, email).toString();
+        let hash = this.accountService.getAccountNumber();
         let data = {hash: hash};
 
-        let ac = new AccountCreate(name, email, "MYCODE");
+        // let ac = new AccountCreate(name, email, "MYCODE");
 
-        this.accountService.createAccount(ac);
+        // this.accountService.createAccount(ac);
 
 
       if (!data) {
@@ -101,6 +101,34 @@ export class AccountController {
 
   };
 
+  updateAccountById = async(req: Request, res: Response): Promise<void> => {
+    try {
+      const { id } = req.params;
+      const { accountData } = req.body;
+
+      const data = this.accountService.updateAccountById(id, accountData);
+
+      if (!data) {
+        res.status(404).json({
+          success: false,
+          message: 'Account data not found',
+        });
+        return;
+      }
+
+      res.json({
+        success: true,
+        data: data,
+      });
+    } catch (error) {
+      console.error('Error fetching account data:', error);
+      res.status(500).json({
+        success: false,
+        message: 'Internal server error',
+      });
+    }
+
+  };
 
   updateAccountKidsDataById = async(req: Request, res: Response): Promise<void> => {
     try {

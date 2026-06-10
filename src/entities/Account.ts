@@ -12,6 +12,7 @@ export class AccountCreate {
 }
 
 export class Account {
+  accountKey: string;
   admin: Admin;
   maxPoints: number;
   kids: Kid[];

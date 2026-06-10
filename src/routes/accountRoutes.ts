@@ -14,6 +14,9 @@ router.get('/:id', validateUUID, accountContoller.getAccountById);
 // POST /accounts - Create new account
 router.post('/', accountContoller.createAccount);
 
+// PUT /accounts/:id - update account data
+router.put('/:id', accountContoller.updateAccountById);
+
 // PUT /accounts/kids/:id - Update kids data for account
 router.put('/kids/:id', validateUUID, accountContoller.updateAccountKidsDataById);
 

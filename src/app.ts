@@ -22,9 +22,10 @@ const API_PREFIX = process.env.API_PREFIX || '/api/v1';
 app.use(helmet());
 
 // CORS configuration
+
 app.use(cors({
   origin: process.env.NODE_ENV === 'production' 
-    ? ['https://yourdomain.com'] 
+    ? [`${process.env.KP_SITE}`] 
     : ['http://localhost:3000', 'http://localhost:3001'],
   credentials: true,
 }));
